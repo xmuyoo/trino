@@ -534,6 +534,12 @@ public class TestPhoenixConnectorTest
     }
 
     @Override
+    protected boolean supportsInsertNegativeDate()
+    {
+        return true;
+    }
+
+    @Override
     protected SqlExecutor onRemoteDatabase()
     {
         return sql -> {

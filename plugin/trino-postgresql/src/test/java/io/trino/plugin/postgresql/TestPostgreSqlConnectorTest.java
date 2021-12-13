@@ -580,6 +580,12 @@ public class TestPostgreSqlConnectorTest
         }
     }
 
+    @Override
+    protected boolean supportsInsertNegativeDate()
+    {
+        return true;
+    }
+
     private String getLongInClause(int start, int length)
     {
         String longValues = range(start, start + length)

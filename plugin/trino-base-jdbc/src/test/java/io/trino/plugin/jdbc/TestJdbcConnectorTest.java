@@ -120,6 +120,12 @@ public class TestJdbcConnectorTest
     }
 
     @Override
+    protected boolean supportsInsertNegativeDate()
+    {
+        return true;
+    }
+
+    @Override
     protected String errorMessageForInsertIntoNotNullColumn(String columnName)
     {
         return format("NULL not allowed for column \"%s\"(?s).*", columnName.toUpperCase(ENGLISH));

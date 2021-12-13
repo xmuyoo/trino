@@ -3257,6 +3257,12 @@ public abstract class BaseIcebergConnectorTest
         }
     }
 
+    @Override
+    protected boolean supportsInsertNegativeDate()
+    {
+        return true;
+    }
+
     private OperatorStats getScanOperatorStats(QueryId queryId)
     {
         return getDistributedQueryRunner().getCoordinator()

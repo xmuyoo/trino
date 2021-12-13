@@ -194,6 +194,18 @@ public class TestAccumuloConnectorTest
     }
 
     @Override
+    public void testInsertNegativeDate()
+    {
+        // TODO (https://github.com/trinodb/trino/issues/10208) Fix negative date handling. Expected '-2016-12-07', but got '-2016-11-21'
+    }
+
+    @Override
+    protected boolean supportsInsertNegativeDate()
+    {
+        return true;
+    }
+
+    @Override
     public void testShowColumns()
     {
         // Override base class because table descriptions for Accumulo connector include comments

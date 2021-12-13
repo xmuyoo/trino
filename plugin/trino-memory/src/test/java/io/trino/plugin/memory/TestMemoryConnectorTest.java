@@ -584,6 +584,12 @@ public class TestMemoryConnectorTest
         assertUpdate("DROP SCHEMA test_different_schema");
     }
 
+    @Override
+    protected boolean supportsInsertNegativeDate()
+    {
+        return true;
+    }
+
     private void assertQueryResult(@Language("SQL") String sql, Object... expected)
     {
         MaterializedResult rows = computeActual(sql);

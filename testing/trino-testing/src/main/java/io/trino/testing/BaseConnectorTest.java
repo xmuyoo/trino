@@ -380,7 +380,7 @@ public abstract class BaseConnectorTest
     @Test
     public void testDateYearOfEraPredicate()
     {
-        // Verify the predicate of '-1996-09-14' doesn't match '1997-09-14'
+        // Verify the predicate of '-1996-09-14' doesn't match '1997-09-14'. Both values return same formatted string when we use 'yyyy-MM-dd' in DateTimeFormatter
         assertQuery("SELECT orderdate FROM orders WHERE orderdate = DATE '1997-09-14'", "VALUES DATE '1997-09-14'");
         assertQueryReturnsEmptyResult("SELECT * FROM orders WHERE orderdate = DATE '-1996-09-14'");
     }
@@ -1178,6 +1178,27 @@ public abstract class BaseConnectorTest
         }
 
         super.testRenameColumn();
+    }
+
+    @Test
+    public void testInsertNegativeDate()
+    {
+        skipTestUnless(hasBehavior(SUPPORTS_CREATE_TABLE) && hasBehavior(SUPPORTS_INSERT));
+
+        try (TestTable table = new TestTable(getQueryRunner()::execute, "insert_date", "(dt DATE)")) {
+            if (supportsInsertNegativeDate()) {
+                assertUpdate(format("INSERT INTO %s VALUES (DATE '-2016-12-07')", table.getName()), 1);
+                assertQuery("SELECT * FROM " + table.getName(), "VALUES DATE '-2016-12-07'");
+            }
+            else {
+                assertQueryFails(format("INSERT INTO %s VALUES (DATE '-2016-12-07')", table.getName()), "(?s).*Failed to insert data.*");
+            }
+        }
+    }
+
+    protected boolean supportsInsertNegativeDate()
+    {
+        return false;
     }
 
     @Test

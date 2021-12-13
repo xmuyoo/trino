@@ -883,6 +883,12 @@ public class TestCassandraConnectorTest
                 .hasStackTraceContaining("Delete without primary key or partition key is not supported");
     }
 
+    @Override
+    protected boolean supportsInsertNegativeDate()
+    {
+        return true;
+    }
+
     private void assertSelect(String tableName, boolean createdByTrino)
     {
         Type inetType = createdByTrino ? createUnboundedVarcharType() : createVarcharType(45);

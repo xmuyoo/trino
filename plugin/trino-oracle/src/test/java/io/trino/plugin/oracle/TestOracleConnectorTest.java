@@ -82,6 +82,18 @@ public class TestOracleConnectorTest
     }
 
     @Override
+    public void testInsertNegativeDate()
+    {
+        // TODO (https://github.com/trinodb/trino/issues/10208) Fix negative date handling. Expected '-2016-12-07T00:00', but got '-2016-12-24T00:00'
+    }
+
+    @Override
+    protected boolean supportsInsertNegativeDate()
+    {
+        return true;
+    }
+
+    @Override
     protected SqlExecutor onRemoteDatabase()
     {
         return oracleServer::execute;

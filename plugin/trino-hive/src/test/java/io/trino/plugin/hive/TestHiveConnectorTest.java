@@ -8481,6 +8481,12 @@ public class TestHiveConnectorTest
     }
 
     @Override
+    protected boolean supportsInsertNegativeDate()
+    {
+        return true;
+    }
+
+    @Override
     protected TestTable createTableWithDefaultColumns()
     {
         throw new SkipException("Hive connector does not support column default values");
